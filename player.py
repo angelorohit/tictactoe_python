@@ -13,7 +13,7 @@ class Player:
         else:
             print(f'Your name cannot be empty. Defaulting to {self.name}')
 
-    def take_turn(self, grid_size: int) -> (int, int, str):
+    def take_turn(self, grid_size: int) -> (int, int, Optional[str]):
         turn_input = input('Enter your position (Example, A1 or C2): ')
         return self.validate_turn_input(turn_input, grid_size)
 
