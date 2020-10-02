@@ -13,13 +13,13 @@ class GameCoordinator:
         self.player1.gather_name()
         self.player2.gather_name()
 
-        print('')
+        print()
         print(f'{self.player1.name}\'s symbol is {self.player1.symbol}')
         print(f'{self.player2.name}\'s symbol is {self.player2.symbol}')
-        print('')
+        print()
 
         self.game_board.gather_board_size()
-        print('')
+        print()
 
         self.resume_game()
 
