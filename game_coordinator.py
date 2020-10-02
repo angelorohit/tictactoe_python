@@ -14,8 +14,8 @@ class GameCoordinator:
         self.player2.gather_name()
 
         print()
-        print(f'{self.player1.name}\'s symbol is {self.player1.symbol}')
-        print(f'{self.player2.name}\'s symbol is {self.player2.symbol}')
+        print(f"{self.player1.name}'s symbol is {self.player1.symbol}")
+        print(f"{self.player2.name}'s symbol is {self.player2.symbol}")
         print()
 
         self.game_board.gather_board_size()
@@ -35,7 +35,7 @@ class GameCoordinator:
             print('Draw!')
             return
 
-        print(f'It is {self.next_turn_player.name}\'s turn.')
+        print(f"It is {self.next_turn_player.name}'s turn.")
         row, col, error_msg = self.next_turn_player.take_turn(
             self.game_board.size)
         if error_msg:

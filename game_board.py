@@ -22,7 +22,7 @@ class GameBoard:
 
     def render(self) -> None:
         # Print all the column labels
-        print('    ', end='')
+        print(end='    ')
         upper_a_ascii = ord('A')
         for col in range(0, self.size):
             print(f'{chr(upper_a_ascii + col)}', end='   ')
@@ -30,10 +30,10 @@ class GameBoard:
 
         # Print row labels along with cells for each row
         for row_index, row in enumerate(self.grid):
-            print(f'{row_index + 1} | ', end='')
+            print(f'{row_index + 1} |', end=' ')
             for player in row:
                 print(
-                    f'{self.empty_cell_symbol if player == None else player.symbol} | ', end='')
+                    f'{self.empty_cell_symbol if player == None else player.symbol} |', end=' ')
             print()
 
     def make_player_move(self, row: int, col: int, player: Player) -> Optional[Player]:
@@ -44,29 +44,32 @@ class GameBoard:
         return existing_player
 
     def check_win_state(self) -> (Optional[Player], bool):
+        all_items_same = (lambda items: all(
+            item and item == items[0] for item in items))
+
         # Make transposed matrix of grid to check columns
         # TODO: Look into using numpy for better readability
         transposed_grid = tuple(zip(*self.grid))
 
         for pos in range(0, self.size):
             # Check rows
-            if all(player and player == self.grid[pos][0] for player in self.grid[pos]):
+            if all_items_same(self.grid[pos]):
                 return self.grid[pos][0], False
 
             # Check columns
-            if all(player and player == transposed_grid[pos][0] for player in transposed_grid[pos]):
+            if all_items_same(transposed_grid[pos]):
                 return transposed_grid[pos][0], False
 
         # Make and check left-to-right diagonal tuple
         left_to_right_diagonal = tuple(row[index]
                                        for index, row in enumerate(self.grid))
-        if all(player and player == left_to_right_diagonal[0] for player in left_to_right_diagonal):
+        if all_items_same(left_to_right_diagonal):
             return left_to_right_diagonal[0], False
 
         # Make and check right-to-left diagonal tuple
         right_to_left_diagonal = tuple(row[-index - 1]
                                        for index, row in enumerate(self.grid))
-        if all(player and player == right_to_left_diagonal[0] for player in right_to_left_diagonal):
+        if all_items_same(right_to_left_diagonal):
             return right_to_left_diagonal[0], False
 
         # If all cells are filled, then the game is a draw
