@@ -21,9 +21,9 @@ class GameCoordinator:
         self.game_board.gather_board_size()
         print()
 
-        self.resume_game()
+        self.resume()
 
-    def resume_game(self) -> None:
+    def resume(self) -> None:
         self.game_board.render()
 
         winner, is_draw = self.game_board.check_win_state()
@@ -48,4 +48,4 @@ class GameCoordinator:
             else:
                 self.next_turn_player = self.player2 if self.next_turn_player == self.player1 else self.player1
 
-        self.resume_game()
+        self.resume()
