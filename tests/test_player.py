@@ -9,7 +9,8 @@ def input_cases(cases: dict = None):
         @wraps(test_func)
         @patch('builtins.input', side_effect=cases.keys())
         def wrapper(self, magic_mock, *args, **kwargs):
-            return test_func(self, cases.values(), *args, **kwargs)
+            for expected_output in cases.values():
+                test_func(self, expected_output, *args, **kwargs)
         return wrapper
     return _decorate
 
@@ -25,11 +26,10 @@ class TestPlayer(unittest.TestCase):
         'New name': 'New name',
         # Empty name should not update the player's name
         ' ': 'Original name'})
-    def test_gather_input(self, expected_names):
-        for expected_name in expected_names:
-            player = Player('Original name', 'X')
-            player.gather_name()
-            self.assertEqual(player.name, expected_name)
+    def test_gather_input(self, expected_output):
+        player = Player('Original name', 'X')
+        player.gather_name()
+        self.assertEqual(player.name, expected_output)
 
     @input_cases({
         # Lower case input
@@ -46,13 +46,10 @@ class TestPlayer(unittest.TestCase):
         'C4': (0, 0, 'You must enter a row value that is within the playing board size of 1 to 3'),
         # Column exceeds game board size
         'D1': (0, 0, 'You must enter a column value that is within the playing board size of A to C')})
-    def test_take_turn(self, expected_outputs):
-        for expected_output in expected_outputs:
-            player = Player('Alice', 'X')
-            row, col, error_msg = player.take_turn(game_board_size=3)
-            self.assertEqual(row, expected_output[0])
-            self.assertEqual(col, expected_output[1])
-            self.assertEqual(error_msg, expected_output[2])
+    def test_take_turn(self, expected_output):
+        player = Player('Alice', 'X')
+        turn_result = player.take_turn(game_board_size=3)
+        self.assertEqual(turn_result, expected_output)
 
 
 if __name__ == '__main__':
