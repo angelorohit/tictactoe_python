@@ -1,18 +1,6 @@
 import unittest
-from unittest.mock import patch
 from game.player import Player
-from functools import wraps
-
-
-def input_cases(cases: dict = None):
-    def _decorate(test_func):
-        @wraps(test_func)
-        @patch('builtins.input', side_effect=cases.keys())
-        def wrapper(self, magic_mock, *args, **kwargs):
-            for expected_output in cases.values():
-                test_func(self, expected_output, *args, **kwargs)
-        return wrapper
-    return _decorate
+from utilities import input_cases
 
 
 class TestPlayer(unittest.TestCase):
@@ -26,10 +14,10 @@ class TestPlayer(unittest.TestCase):
         'New name': 'New name',
         # Empty name should not update the player's name
         ' ': 'Original name'})
-    def test_gather_input(self, expected_output):
+    def test_gather_input(self, expected_name):
         player = Player('Original name', 'X')
         player.gather_name()
-        self.assertEqual(player.name, expected_output)
+        self.assertEqual(player.name, expected_name)
 
     @input_cases({
         # Lower case input

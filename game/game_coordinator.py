@@ -1,5 +1,5 @@
-from player import Player
-from game_board import GameBoard
+from game.player import Player
+from game.game_board import GameBoard
 
 
 class GameCoordinator:

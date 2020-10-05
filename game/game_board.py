@@ -1,4 +1,4 @@
-from player import Player
+from game.player import Player
 from typing import Optional
 
 
@@ -8,7 +8,8 @@ class GameBoard:
         self.clear(size)
 
     def gather_board_size(self):
-        size = input('Enter a game board size between 3 and 9 (inclusive): ')
+        size = input(
+            'Enter a game board size between 3 and 9 (inclusive): ').strip()
         if size.isdigit() and int(size) >= 3 and int(size) <= 9:
             self.clear(int(size))
         else:

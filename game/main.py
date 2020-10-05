@@ -1,4 +1,3 @@
-from game_coordinator import GameCoordinator
-game_coordinator = GameCoordinator()
+from game.game_coordinator import GameCoordinator
 
-game_coordinator.start()
+GameCoordinator().start()
