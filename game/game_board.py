@@ -1,6 +1,8 @@
-from game.player import Player
 from typing import Optional
+
 import numpy as np
+
+from game.player import Player
 
 
 class GameBoard:

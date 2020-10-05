@@ -1,5 +1,7 @@
 import unittest
+
 from game.player import Player
+
 from utilities import input_cases
 
 

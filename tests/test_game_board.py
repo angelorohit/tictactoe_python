@@ -1,8 +1,10 @@
 import unittest
+
+import numpy as np
 from game.game_board import GameBoard
 from game.player import Player
+
 from utilities import input_cases
-import numpy as np
 
 
 class TestGameBoard(unittest.TestCase):
