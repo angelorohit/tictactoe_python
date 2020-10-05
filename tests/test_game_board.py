@@ -2,6 +2,7 @@ import unittest
 from game.game_board import GameBoard
 from game.player import Player
 from utilities import input_cases
+import numpy as np
 
 
 class TestGameBoard(unittest.TestCase):
@@ -9,19 +10,16 @@ class TestGameBoard(unittest.TestCase):
         game_board = GameBoard(Player('Player1', 'X'),
                                Player('Player2', 'O'), size=3)
         self.assertEqual(game_board.size, 3)
-        self.assertEqual(game_board.grid, ([None, None, None],
-                                           [None, None, None],
-                                           [None, None, None]))
+        self.assertTupleEqual(np.shape(game_board.grid), (3, 3))
+        self.assertTrue(np.all(game_board.grid == None))
 
     def test_clear(self):
         game_board = GameBoard(Player('Player1', 'X'),
                                Player('Player2', 'O'), size=3)
         game_board.clear(size=4)
         self.assertEqual(game_board.size, 4)
-        self.assertTupleEqual(game_board.grid, ([None, None, None, None],
-                                                [None, None, None, None],
-                                                [None, None, None, None],
-                                                [None, None, None, None]))
+        self.assertTupleEqual(np.shape(game_board.grid), (4, 4))
+        self.assertTrue(np.all(game_board.grid == None))
 
     @input_cases({
         '4': 4,
@@ -36,8 +34,9 @@ class TestGameBoard(unittest.TestCase):
                                Player('Player2', 'O'), size=3)
         game_board.gather_board_size()
         self.assertEqual(game_board.size, expected_size)
-        self.assertTupleEqual(game_board.grid, tuple([None for pos in range(0, expected_size)]
-                                                     for row in range(0, expected_size)))
+        self.assertTupleEqual(np.shape(game_board.grid),
+                              (expected_size, expected_size))
+        self.assertTrue(np.all(game_board.grid == None))
 
 
 if __name__ == '__main__':
