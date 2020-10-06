@@ -6,7 +6,7 @@ from game.player import Player
 
 
 class GameBoard:
-    def __init__(self, player1: Player, player2: Player, size: int = 3):
+    def __init__(self, size: int = 3):
         self.empty_cell_symbol = '-'
         self.clear(size)
 
@@ -23,23 +23,23 @@ class GameBoard:
         self.size = size
         self.grid = np.empty(shape=(size, size), dtype=Player)
 
-    def render(self) -> None:
+    def render(self) -> str:
         # Print all the column labels
-        print(end='    ')
+        render_result = '    '
         col_start_ascii = ord('A')
         for col_ascii in range(col_start_ascii, col_start_ascii + self.size):
-            print(f'{chr(col_ascii)}', end='   ')
-        print()
+            render_result += f'{chr(col_ascii)}   '
+        render_result += '\n'
 
         # Print row labels along with cells for each row
         row_label = 1
         for row in self.grid:
-            print(f'{row_label} |', end=' ')
+            render_result += f'{row_label} | '
             for player in row:
-                print(
-                    f'{self.empty_cell_symbol if player == None else player.symbol} |', end=' ')
-            print()
+                render_result += f'{self.empty_cell_symbol if player == None else player.symbol} | '
+            render_result += '\n'
             row_label += 1
+        return render_result
 
     def make_player_move(self, row: int, col: int, player: Player) -> Optional[Player]:
         existing_player = self.grid[row][col]

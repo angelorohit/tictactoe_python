@@ -6,7 +6,7 @@ class GameCoordinator:
     def __init__(self) -> None:
         self.player1 = Player(name='Player 1', symbol='X')
         self.player2 = Player(name='Player 2', symbol='O')
-        self.game_board = GameBoard(self.player1, self.player2)
+        self.game_board = GameBoard()
         self.next_turn_player = self.player1
 
     def start(self) -> None:
@@ -24,7 +24,7 @@ class GameCoordinator:
         self.resume()
 
     def resume(self) -> None:
-        self.game_board.render()
+        print(self.game_board.render())
 
         winner, is_draw = self.game_board.check_win_state()
         if winner:
