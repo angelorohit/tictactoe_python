@@ -16,8 +16,9 @@ class GameBoard:
         if size.isdigit() and int(size) >= 3 and int(size) <= 9:
             self.clear(int(size))
         else:
+            self.clear(size=3)
             print(
-                f'The game board size must be between 3 and 9 (inclusive). Defaulting to {self.size}')
+                f'The game board size must be between 3 and 9 (inclusive). Defaulting to 3')
 
     def clear(self, size: int) -> None:
         self.size = size
@@ -72,6 +73,6 @@ class GameBoard:
         if all_items_same(right_to_left_diagonal):
             return right_to_left_diagonal[0], False
 
-        is_draw = np.all(self.grid)
+        is_draw = np.all(self.grid != None)
 
         return None, is_draw
