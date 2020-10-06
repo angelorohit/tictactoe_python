@@ -2,7 +2,7 @@ import unittest
 
 from game.player import Player
 
-from utilities import input_cases
+from tests.utilities import input_cases
 
 
 class TestPlayer(unittest.TestCase):

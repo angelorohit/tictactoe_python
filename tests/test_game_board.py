@@ -4,7 +4,7 @@ import numpy as np
 from game.game_board import GameBoard
 from game.player import Player
 
-from utilities import input_cases
+from tests.utilities import input_cases
 
 
 class TestGameBoard(unittest.TestCase):
